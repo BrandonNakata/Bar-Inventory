@@ -1,0 +1,1001 @@
+/* Plain CSS, no framework: tokens, base, layout, then each screen. */
+
+:root {
+  --bg: #14110f;
+  --surface: #1e1a17;
+  --surface-2: #26211d;
+  --border: #322b26;
+  --text: #f0e9e3;
+  --muted: #a1938a;
+  --accent: #c9743a;
+  --danger: #d9614c;
+  --ok: #8fb573;
+  --warn: #d9a441;
+
+  color-scheme: dark;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+a {
+  color: inherit;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.9rem;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+/* Hidden visually, still read aloud by screen readers. The standard recipe. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---- layout ---- */
+
+.app {
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 4rem;
+}
+
+.nav {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 1.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.nav a {
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.nav a:hover {
+  color: var(--text);
+}
+
+/* NavLink adds .active to whichever link matches the current URL. */
+.nav a.active {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.header-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.header-link:hover {
+  text-decoration: underline;
+}
+
+.count {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.demo-badge {
+  display: inline-block;
+  margin: -0.75rem 0 1.25rem;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+/* ---- form ---- */
+
+.add-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: flex-end;
+  margin: 1.75rem 0;
+  padding: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex: 1 1 13rem;
+}
+
+label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+}
+
+input,
+select {
+  padding: 0.55rem 0.65rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.95rem;
+}
+
+input:focus-visible,
+select:focus-visible,
+button:focus-visible,
+a:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+button {
+  padding: 0.55rem 1.1rem;
+  background: var(--accent);
+  border: 1px solid transparent;
+  border-radius: 0.4rem;
+  color: #14110f;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+button.ghost {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--muted);
+  font-weight: 400;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.7rem;
+}
+
+button.ghost:hover:not(:disabled) {
+  color: var(--text);
+  border-color: var(--muted);
+}
+
+.bottle button.ghost:hover {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.hint {
+  flex-basis: 100%;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.hint strong {
+  color: var(--text);
+}
+
+/* ---- add by barcode ---- */
+
+.scan-panel {
+  margin: 1.75rem 0 0;
+  padding: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+}
+
+.scan-form {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+}
+
+.scan-form input {
+  flex: 1;
+  min-width: 0;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+.scan-result {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.scan-result > p {
+  margin: 0 0 0.75rem;
+}
+
+.scan-headline {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+/* The confirm form sits inside the panel, so it drops its own card look. */
+.scan-result .add-form {
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+}
+
+.scan-added {
+  margin: 0.75rem 0 0;
+  color: var(--ok);
+}
+
+.scan-added strong {
+  color: var(--text);
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.camera-launch {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+}
+
+.camera-note {
+  font-size: 0.82rem;
+}
+
+.camera-note code {
+  font-size: 0.78rem;
+}
+
+/* ---- camera ---- */
+
+.camera {
+  display: grid;
+  gap: 0.6rem;
+  justify-items: start;
+  margin-top: 0.9rem;
+}
+
+/* A 4:3 window with the video filling it edge to edge. */
+.camera-frame {
+  position: relative;
+  width: 100%;
+  max-width: 28rem;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #000;
+  border-radius: 0.6rem;
+}
+
+.camera-frame video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Aim box; the large box-shadow darkens everything outside it. */
+.camera-reticle {
+  position: absolute;
+  inset: 32% 12%;
+  border: 2px solid var(--accent);
+  border-radius: 0.4rem;
+  box-shadow: 0 0 0 100vmax rgb(0 0 0 / 0.35);
+  pointer-events: none;
+}
+
+.camera-status {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  color: var(--muted);
+}
+
+.camera-hint {
+  margin: 0;
+  font-size: 0.88rem;
+}
+
+/* ---- add by hand (folded away under the barcode panel) ---- */
+
+.manual-add {
+  margin: 0.75rem 0 1.75rem;
+}
+
+.manual-add > summary {
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.manual-add > summary:hover {
+  color: var(--text);
+}
+
+.manual-add .add-form {
+  margin: 0.75rem 0 0;
+}
+
+/* ---- shelf ---- */
+
+.bottle-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+  overflow: hidden;
+}
+
+.bottle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem 1rem;
+  background: var(--surface);
+}
+
+.bottle + .bottle {
+  border-top: 1px solid var(--border);
+}
+
+.bottle-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.bottle-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bottle-category {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+/* ---- recipes list ---- */
+
+.recipe-section {
+  margin-top: 2rem;
+}
+
+.section-heading,
+.recipe-section > summary {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.recipe-section > summary {
+  cursor: pointer;
+  list-style: none; /* hides the default triangle... */
+}
+
+.recipe-section > summary::-webkit-details-marker {
+  display: none; /* ...in Safari too */
+}
+
+.recipe-section > summary::before {
+  content: "▸";
+  color: var(--muted);
+  transition: transform 0.15s;
+}
+
+.recipe-section[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.section-count {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* As many 15rem columns as fit. */
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.recipe-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left-width: 3px;
+  border-radius: 0.6rem;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.recipe-card:hover {
+  background: var(--surface-2);
+}
+
+.recipe-card.status-makeable { border-left-color: var(--ok); }
+.recipe-card.status-one_short { border-left-color: var(--warn); }
+.recipe-card.status-not_tonight { border-left-color: var(--border); }
+
+.recipe-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  height: 100%;
+  padding: 0.8rem 0.9rem;
+  text-decoration: none;
+}
+
+.recipe-name {
+  font-weight: 600;
+}
+
+.recipe-meta {
+  color: var(--muted);
+  font-size: 0.78rem;
+  text-transform: capitalize;
+}
+
+.recipe-lines {
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.recipe-missing {
+  margin-top: 0.3rem;
+  font-size: 0.82rem;
+  color: var(--warn);
+}
+
+.status-not_tonight .recipe-missing {
+  color: var(--muted);
+}
+
+/* Unavailable drinks on the guest menu look the same and a bit quieter. */
+.unavailable-grid .recipe-card {
+  border-left-color: var(--border);
+  opacity: 0.72;
+}
+
+.unavailable-grid .recipe-card:hover {
+  opacity: 1;
+}
+
+/* ---- shopping ---- */
+
+.shopping-list {
+  display: grid;
+  gap: 0.75rem;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: rank;
+}
+
+.shopping-item {
+  position: relative;
+  padding: 0.85rem 1rem 0.85rem 2.9rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+  counter-increment: rank;
+}
+
+/* Rank numbers come from a CSS counter. */
+.shopping-item::before {
+  content: counter(rank);
+  position: absolute;
+  left: 1rem;
+  top: 0.85rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.shopping-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.unlocks {
+  color: var(--ok);
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.unlocked-recipes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.9rem;
+  margin: 0.35rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.unlocked-recipes a {
+  color: var(--text);
+  text-decoration-color: var(--border);
+  text-underline-offset: 0.2em;
+}
+
+.unlocked-recipes a:hover {
+  text-decoration-color: var(--accent);
+}
+
+.shopping-empty,
+.menu-empty {
+  margin-top: 1.75rem;
+}
+
+.shopping-empty a,
+.menu-empty a,
+.recipe-section .muted a {
+  color: var(--accent);
+}
+
+.menu-grid {
+  margin-top: 1.75rem;
+}
+
+/* ---- recipe detail ---- */
+
+.back {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.back:hover {
+  color: var(--text);
+}
+
+.status-pill {
+  display: inline-block;
+  margin: 0.6rem 0 0;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: var(--surface-2);
+}
+
+.status-pill.status-makeable { color: var(--ok); }
+.status-pill.status-one_short { color: var(--warn); }
+.status-pill.status-not_tonight { color: var(--muted); }
+
+.recipe-detail .count {
+  text-transform: capitalize;
+}
+
+.lines {
+  margin: 1.5rem 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+  overflow: hidden;
+}
+
+.line {
+  display: grid;
+  grid-template-columns: 1.5rem 6.5rem 1fr;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.6rem 0.9rem;
+  background: var(--surface);
+}
+
+.line + .line {
+  border-top: 1px solid var(--border);
+}
+
+.line .mark { font-weight: 700; }
+.line-have .mark { color: var(--ok); }
+.line-missing .mark { color: var(--danger); }
+.line-optional .mark { color: var(--muted); }
+
+.line-missing .ingredient { color: var(--danger); }
+
+.amount {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.garnish .label {
+  margin-right: 0.4rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.instructions {
+  max-width: 38rem;
+  margin: 1rem 0 1.5rem;
+}
+
+/* ---- category picker (Shelf form + recipe editor) ---- */
+
+.add-form .picker {
+  flex-basis: 100%;
+}
+
+.picker-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+}
+
+.picker-chosen {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.5rem 0.65rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
+}
+
+/* Chips sized for a thumb (44px minimum tap target). */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.2rem;
+}
+
+.chip {
+  min-height: 2.4rem;
+  padding: 0.35rem 0.85rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.chip.chip-on {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #14110f;
+}
+
+.chip.chip-more {
+  background: transparent;
+  color: var(--muted);
+}
+
+.picker-results {
+  max-height: 18rem;
+  margin: 0.2rem 0 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
+}
+
+.picker-result {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--bg);
+  border: 0;
+  border-radius: 0;
+  color: var(--text);
+  font-weight: 400;
+  text-align: left;
+}
+
+.picker-results li + li .picker-result {
+  border-top: 1px solid var(--border);
+}
+
+.picker-result.is-selected {
+  background: var(--surface-2);
+  font-weight: 600;
+}
+
+.picker-cancel {
+  align-self: flex-start;
+}
+
+/* ---- recipe list tools ---- */
+
+.recipe-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+  margin-top: 1.25rem;
+}
+
+.recipe-search {
+  flex: 1 1 14rem;
+  min-width: 0;
+}
+
+.segmented {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.segmented button {
+  padding: 0.45rem 0.95rem;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.segmented button.seg-on {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.show-more {
+  display: block;
+  margin: 1rem auto 0;
+}
+
+.recipe-owner {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+/* ---- steps ---- */
+
+ol.steps {
+  max-width: 38rem;
+  margin: 1rem 0 1.5rem;
+  padding-left: 1.4rem;
+}
+
+ol.steps li {
+  padding: 0.3rem 0;
+}
+
+ol.steps li::marker {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+/* A link styled as a small ghost button. */
+.button-link {
+  display: inline-block;
+  padding: 0.3rem 0.9rem;
+  border: 1px solid var(--accent);
+  border-radius: 0.4rem;
+  color: var(--accent);
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+button.ghost.danger:hover:not(:disabled) {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+/* ---- recipe editor ---- */
+
+.recipe-edit h1 {
+  margin-bottom: 1rem;
+}
+
+.edit-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin: 1rem 0;
+  padding: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+}
+
+/* .field grows along rows; turn that off in column layouts. */
+.edit-block > .field,
+.edit-line > .field {
+  flex: none;
+}
+
+.edit-row,
+.edit-line-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: flex-end;
+}
+
+.edit-row .field {
+  flex: 1 1 8rem;
+}
+
+.edit-line {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.edit-line-row .field {
+  flex: 1 1 9rem;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.4rem;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.steps-editor ol.steps {
+  padding-left: 1.6rem;
+}
+
+.steps-editor li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.step-view {
+  padding: 0.2rem 0;
+  background: none;
+  border: 0;
+  color: var(--text);
+  font-weight: 400;
+  text-align: left;
+  line-height: 1.6;
+}
+
+.step-tools {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.steps-editor textarea {
+  width: 100%;
+  padding: 0.55rem 0.65rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.95rem;
+  resize: vertical;
+}
+
+.insert-chips .chip {
+  min-height: 2.1rem;
+  font-size: 0.82rem;
+}
+
+.step-preview {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* A filled-in placeholder drawn as a chip. */
+.token {
+  padding: 0.05rem 0.4rem;
+  border-radius: 0.3rem;
+  background: var(--surface-2);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.token.token-missing {
+  color: var(--danger);
+  text-decoration: line-through;
+}
+
+/* ---- states ---- */
+
+.muted {
+  color: var(--muted);
+}
+
+.error {
+  margin: 0.75rem 0;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--danger);
+  border-radius: 0.4rem;
+  color: var(--danger);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 30rem) {
+  .line {
+    grid-template-columns: 1.25rem 5rem 1fr;
+  }
+}

@@ -1,0 +1,15 @@
+# Netlify config for the demo build (in-browser fake API, no backend).
+
+[build]
+  base = "frontend"
+  command = "npm run build:demo"
+  publish = "dist-demo"   # demo builds go here, never over the Pi build in dist/
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# SPA fallback: serve index.html for any path.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

@@ -1,0 +1,31 @@
+# Home Assistant add-on definition.
+# No build.yaml: it's deprecated, so the base image is set in the Dockerfile.
+
+name: Bar Inventory
+description: What's on the shelf, and what you can make with it.
+version: "0.6.0"
+slug: bar_inventory
+
+# aarch64 for the Pi 4; amd64 for PC-based Home Assistant.
+arch:
+  - aarch64
+  - amd64
+
+startup: application
+boot: auto
+
+# container port: host port; changeable in the add-on's Network settings.
+ports:
+  8000/tcp: 8000
+  8443/tcp: 8443
+ports_description:
+  8000/tcp: App + API over HTTP (the iPad panel uses this)
+  8443/tcp: Same app over HTTPS (phones need this for the camera)
+
+# The Supervisor restarts the add-on if this stops answering.
+watchdog: http://[HOST]:[PORT:8000]/api/health
+
+# Read-only share access: the first start imports share/bar_inventory/bar.db if present.
+map:
+  - type: share
+    read_only: true

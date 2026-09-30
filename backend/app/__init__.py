@@ -1,0 +1,1 @@
+"""Bar inventory backend package."""
