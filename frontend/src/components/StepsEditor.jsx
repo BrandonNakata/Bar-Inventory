@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react'
 
 import { segments } from '../lib/steps'
+import Icon from './Icon'
 
 export default function StepsEditor({ steps, lines, onChange }) {
   const [editing, setEditing] = useState(null) // index being edited, or null
@@ -83,14 +84,14 @@ export default function StepsEditor({ steps, lines, onChange }) {
               </button>
             )}
             <span className="step-tools">
-              <button type="button" className="ghost" onClick={() => move(index, -1)} disabled={index === 0} aria-label="Move up">↑</button>
-              <button type="button" className="ghost" onClick={() => move(index, 1)} disabled={index === steps.length - 1} aria-label="Move down">↓</button>
+              <button type="button" className="ghost" onClick={() => move(index, -1)} disabled={index === 0} aria-label="Move up"><Icon name="up" /></button>
+              <button type="button" className="ghost" onClick={() => move(index, 1)} disabled={index === steps.length - 1} aria-label="Move down"><Icon name="down" /></button>
               {editing === index ? (
                 <button type="button" className="ghost" onClick={() => setEditing(null)}>Done</button>
               ) : (
                 <button type="button" className="ghost" onClick={() => setEditing(index)}>Edit</button>
               )}
-              <button type="button" className="ghost danger" onClick={() => remove(index)} aria-label="Delete step">✕</button>
+              <button type="button" className="ghost danger" onClick={() => remove(index)} aria-label="Delete step"><Icon name="close" /></button>
             </span>
           </li>
         ))}

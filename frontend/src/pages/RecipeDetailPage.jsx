@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import { api } from '../api'
+import Icon from '../components/Icon'
 
 const STATUS_LABEL = {
   makeable: 'You can make this',
@@ -66,7 +67,7 @@ export default function RecipeDetailPage() {
     return (
       <>
         <Link to="/recipes" className="back">
-          ← All recipes
+          All recipes
         </Link>
         <p className="error" role="alert">
           {error}
@@ -80,7 +81,7 @@ export default function RecipeDetailPage() {
   return (
     <article className="recipe-detail">
       <Link to="/recipes" className="back">
-        ← All recipes
+        All recipes
       </Link>
 
       <header>
@@ -102,9 +103,12 @@ export default function RecipeDetailPage() {
           return (
             // Index keys are fine: a recipe's lines don't reorder here.
             <li key={index} className={`line line-${state}`}>
-              <span className="mark" aria-hidden="true">
-                {state === 'have' ? '✓' : state === 'optional' ? '–' : '✗'}
-              </span>
+              {/* A filled home when it's on the shelf, an empty navy one when it isn't. */}
+              {state === 'have' ? (
+                <Icon name="bottle" className="icon mark" />
+              ) : (
+                <span className="mark" aria-hidden="true" />
+              )}
               <span className="amount">{line.amount}</span>
               <span className="ingredient">
                 {line.ingredient_name}

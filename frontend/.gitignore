@@ -3,3 +3,7 @@ dist/
 dist-demo/
 .env.local
 .env.*.local
+
+# Local design tooling and raw font sources (not needed to build)
+.impeccable/
+font-sources/

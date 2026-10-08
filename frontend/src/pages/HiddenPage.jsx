@@ -33,7 +33,7 @@ export default function HiddenPage() {
   return (
     <section>
       <Link to="/recipes" className="back">
-        ← All recipes
+        All recipes
       </Link>
       <h1>Hidden recipes</h1>
       {error && <p className="error">{error}</p>}

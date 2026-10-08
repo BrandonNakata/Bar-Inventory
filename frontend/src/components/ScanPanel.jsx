@@ -1,9 +1,10 @@
 /** Add by barcode: type or scan a code, look it up, confirm. */
 
-import { useId, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 
 import { api } from '../api'
 import AddBottleForm from './AddBottleForm'
+import Icon from './Icon'
 import CameraScanner from './CameraScanner'
 
 const SOURCE_LABEL = {
@@ -12,7 +13,7 @@ const SOURCE_LABEL = {
   manual: 'your own records',
 }
 
-export default function ScanPanel({ ingredients, onAdd }) {
+export default function ScanPanel({ ingredients, onAdd, focusSignal }) {
   const [code, setCode] = useState('')
   const [looking, setLooking] = useState(false)
   const [result, setResult] = useState(null)
@@ -21,6 +22,14 @@ export default function ScanPanel({ ingredients, onAdd }) {
   const [added, setAdded] = useState(null)
   const [cameraOpen, setCameraOpen] = useState(false)
   const id = useId()
+  const codeRef = useRef(null)
+
+  // The rail's "Scan a bottle" link sends a fresh signal; focus the barcode field.
+  useEffect(() => {
+    if (!focusSignal) return
+    codeRef.current?.focus()
+    codeRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }, [focusSignal])
 
   // Camera access needs a secure context (HTTPS or localhost).
   const cameraPossible =
@@ -84,16 +93,16 @@ export default function ScanPanel({ ingredients, onAdd }) {
   }
 
   return (
-    <section className="scan-panel">
-      <h2>Add by barcode</h2>
-
+    <section className="scan-panel" aria-label="Add by barcode">
       <form className="scan-form" onSubmit={lookUp}>
-        <label htmlFor={`${id}-code`} className="sr-only">
-          Barcode
+        <label htmlFor={`${id}-code`} className="scan-label">
+          <Icon name="scan" />
+          Add by barcode
         </label>
         {/* type="text" keeps leading zeros; inputMode brings up the number pad. */}
         <input
           id={`${id}-code`}
+          ref={codeRef}
           type="text"
           inputMode="numeric"
           autoComplete="off"
@@ -104,13 +113,10 @@ export default function ScanPanel({ ingredients, onAdd }) {
         <button type="submit" disabled={looking || !code.trim()}>
           {looking ? 'Looking up…' : 'Look up'}
         </button>
-      </form>
-
-      {!cameraOpen && (
-        <div className="camera-launch">
+        {!cameraOpen && (
           <button
             type="button"
-            className="ghost"
+            className="ghost icon-button"
             onClick={() => {
               setError(null)
               setResult(null)
@@ -118,15 +124,18 @@ export default function ScanPanel({ ingredients, onAdd }) {
               setCameraOpen(true)
             }}
             disabled={!cameraPossible || looking}
+            aria-label="Scan with camera"
+            title={cameraPossible ? 'Scan with camera' : 'Camera needs HTTPS'}
           >
-            Scan with camera
+            <Icon name="camera" />
           </button>
-          {!cameraPossible && (
-            <span className="muted camera-note">
-              Camera needs HTTPS. On your phone, use <code>npm run dev:phone</code>.
-            </span>
-          )}
-        </div>
+        )}
+      </form>
+
+      {!cameraOpen && !cameraPossible && (
+        <p className="muted camera-note">
+          Camera scanning needs HTTPS. On your phone, use <code>npm run dev:phone</code>.
+        </p>
       )}
 
       {/* Unmounting the scanner stops the camera. */}
@@ -142,7 +151,7 @@ export default function ScanPanel({ ingredients, onAdd }) {
 
       {added && !result && (
         <p className="scan-added" role="status">
-          ✓ Added <strong>{added}</strong>. Next one?
+          Added <strong>{added}</strong>. Next one?
         </p>
       )}
 

@@ -11,6 +11,7 @@ export default function AddBottleForm({
   initialName = '',
   initialIngredientId = '',
   submitLabel = 'Add',
+  placeholder = 'Carpano Antica Formula',
   onCancel,
 }) {
   const [productName, setProductName] = useState(initialName)
@@ -69,7 +70,7 @@ export default function AddBottleForm({
           id={`${id}-name`}
           type="text"
           value={productName}
-          placeholder="Carpano Antica Formula"
+          placeholder={placeholder}
           autoComplete="off"
           onChange={(event) => setProductName(event.target.value)}
           onBlur={handleNameBlur}
