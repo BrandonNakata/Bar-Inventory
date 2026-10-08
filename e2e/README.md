@@ -1,0 +1,1 @@
+This is the testing suite used for the bar-inventory app. Adding in new tests to cover potential issues with the application itself.
