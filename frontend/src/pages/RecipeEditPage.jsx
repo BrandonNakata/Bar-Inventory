@@ -140,7 +140,7 @@ export default function RecipeEditPage() {
   return (
     <form className="recipe-edit" onSubmit={save}>
       <Link to={recipeId ? `/recipes/${recipeId}` : '/recipes'} className="back">
-        ← Cancel
+        Cancel
       </Link>
       <h1>{recipeId ? `Edit ${draft.name || 'recipe'}` : `New ${draft.kind}`}</h1>
 

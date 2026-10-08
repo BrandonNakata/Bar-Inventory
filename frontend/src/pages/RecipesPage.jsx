@@ -135,11 +135,13 @@ export default function RecipesPage() {
         </p>
       )}
       {menu.length > 0 && (
-        <ul className="recipe-grid menu-grid">
-          {menu.map((recipe) => (
-            <RecipeCard key={recipe.id} recipe={recipe} />
-          ))}
-        </ul>
+        <section className="board menu-board" aria-label="On the menu">
+          <ul className="recipe-grid menu-grid">
+            {menu.map((recipe) => (
+              <RecipeCard key={recipe.id} recipe={recipe} />
+            ))}
+          </ul>
+        </section>
       )}
 
       {/* Collapsed so guests see the menu first; a search opens it. */}
