@@ -7,4 +7,5 @@ def test_list_ingredients_returns_non_empty_list(playwright: Playwright):
     ingredients = response.json()
     assert isinstance(ingredients, list)
     assert len(ingredients) > 0
-    api.dispose() 
+    api.dispose()
+    
